@@ -8,13 +8,13 @@ HEADERS = {
 }
 
 
-def get_repository(owner, repo):
+def get_repository(owner, repo, timeout):
     url = f"{BASE_URL}/repos/{owner}/{repo}"
 
     response = requests.get(
         url,
         headers=HEADERS,
-        timeout=10,
+        timeout=timeout,
     )
 
     response.raise_for_status()

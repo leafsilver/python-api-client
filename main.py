@@ -20,6 +20,14 @@ def parse_arguments():
         help="仓库名称，例如 cpython",
     )
 
+    parser.add_argument(
+    "--timeout",
+    type=float,
+    default=10,
+    help="请求超时秒数，默认 10",
+    )
+    
+
     return parser.parse_args()
 
 
@@ -27,7 +35,7 @@ def main():
     args = parse_arguments()
 
     try:
-        repository = get_repository(args.owner, args.repo)
+        repository = get_repository(args.owner, args.repo, args.timeout)
 
     except requests.exceptions.Timeout:
         print("请求超时，请稍后重试。")
