@@ -1,16 +1,18 @@
 import requests
 
 
-API_URL = "https://api.github.com/repos/python/cpython"
+BASE_URL = "https://api.github.com"
 
 HEADERS = {
     "Accept": "application/vnd.github+json",
 }
 
 
-def get_repository():
+def get_repository(owner, repo):
+    url = f"{BASE_URL}/repos/{owner}/{repo}"
+
     response = requests.get(
-        API_URL,
+        url,
         headers=HEADERS,
         timeout=10,
     )

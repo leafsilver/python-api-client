@@ -1,11 +1,33 @@
+import argparse
+
 import requests
 
 from api_client.github_client import get_repository
 
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        description="查询 GitHub 仓库信息",
+    )
+
+    parser.add_argument(
+        "owner",
+        help="仓库所有者，例如 python",
+    )
+
+    parser.add_argument(
+        "repo",
+        help="仓库名称，例如 cpython",
+    )
+
+    return parser.parse_args()
+
+
 def main():
+    args = parse_arguments()
+
     try:
-        repository = get_repository()
+        repository = get_repository(args.owner, args.repo)
 
     except requests.exceptions.Timeout:
         print("请求超时，请稍后重试。")
