@@ -1,23 +1,11 @@
 import requests
 
-
-API_URL = "https://api.github.com/repos/python/cpython"
-
-HEADERS = {
-    "Accept": "application/vnd.github+json",
-}
+from api_client.github_client import get_repository
 
 
 def main():
     try:
-        response = requests.get(
-            API_URL,
-            headers=HEADERS,
-            timeout=10,
-        )
-
-        response.raise_for_status()
-        repository = response.json()
+        repository = get_repository()
 
     except requests.exceptions.Timeout:
         print("请求超时，请稍后重试。")
@@ -35,7 +23,6 @@ def main():
         print(f"请求失败：{error}")
 
     else:
-        print(f"HTTP 状态码：{response.status_code}")
         print(f"仓库名称：{repository['full_name']}")
         print(f"项目描述：{repository['description']}")
         print(f"主要语言：{repository['language']}")
